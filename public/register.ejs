@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/register.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="Register">
+        
+        <img class="Register_logo"
+            src="https://th.bing.com/th/id/OIP.W3oujmXkOi_NLWA2Ok0QJgHaFj?w=238&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="" />
+       
+    
+        <div class="Register_container">
+            <h1>Sign Up</h1>
+    
+            <form method="post">
+                <h5>First Name</h5>
+                <input type="text" name="fname"/>
+                <h5>Last Name</h5>
+                <input type="text" name="lname" />
+                <h5>USN</h5>
+                <input type="text" name="usn" />
+                <h5>Date of Birth</h5>
+                <input type="date" name="date" />
+                <h5>Department</h5>
+                <select id="Department" name="dept">
+                    <option selected value="Select department">Select department</option>
+                    <option value="1">Computer Science</option>
+                    <option value="2">Information Science</option>
+                    <option value="3">Electrical and Communication</option>
+                    <option value="4">Mechanical</option>
+                    <option value="5">Civil</option>
+                </select>
+                <h5>Sem</h5>
+                <select id="Sem" name="sem">
+                    <option selected value="Select Semester">Select semester</option>
+                    <option value="1">1st</option>
+                    <option value="2">2nd</option>
+                    <option value="3">3rd</option>
+                    <option value="4">4th</option>
+                    <option value="5">5th</option>
+                    <option value="6">6th</option>
+                    <option value="7">7th</option>
+                    <option value="8">8th</option>
+                </select>
+                <h5>E-mail</h5>
+                <input type="email"  name="email"/>
+                <h5>Password</h5>
+                <input type="password" name="password" />
+               
+                <button type="button" class="RegisterButton" onclick="registeruser()">Sign Up</button>
+               
+            </form>
+    
+    
+        </div>
+    </div>
+
+    <script>
+     async function registeruser(){
+          const form = document.querySelector('form');
+         const error = document.querySelector('.error');
+
+
+         const fname=form.fname.value;
+         const lname=form.lname.value;
+         const usn=form.usn.value;
+         const date=form.date.value;
+         const dept=form.dept.value;
+         const sem=form.sem.value;
+         const email=form.email.value;
+         const pass=form.password.value;
+
+
+          try {
+                const res = await fetch('/register', {
+                    method: 'POST',
+                    body: JSON.stringify({ fname:fname,lname:lname,usn:usn,dob:date,did:dept,sem:sem,email:email,password:pass}),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+
+                if (res.status == 201) {
+                    console.log(22);
+                    location.assign('/userlogin');
+                }
+                else if (res.status == 403) {
+                    error.textContent = data;
+
+                }
+                else if (res.status == 404) {
+                    error.textContent = data;
+                }
+                else if (res.status == 400) {
+                    error.textContent = data.msg;
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+     }
+    </script>
+</body>
+</html>

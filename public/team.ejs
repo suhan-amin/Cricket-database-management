@@ -1,0 +1,208 @@
+<%- include('./sidebar') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+    
+        .type {
+            margin-top: 20px;
+        }
+    
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 100%;
+            height:100px;
+            margin-bottom: 10px;
+            margin-right: 20px;
+            border-radius: 5px;
+    
+        }
+    
+        img {
+            border: 2px solid grey;
+    
+        }
+    
+        .contain {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+    
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    
+        .gridviews {
+    
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 200px;
+            padding-left: 10px;
+            /* grid-column-gap: 10px;
+                grid-row-gap: 15px; */
+            /* grid-gap:10px; */
+    
+        }
+    
+        .head {
+            margin-left: 200px;
+            margin-bottom: 40px;
+            margin-top: 0px;
+        }
+    
+        .mulselect {
+            width: 30%;
+        }
+        </style>
+</head>
+<body>
+
+    <div style="margin-left: 350px; margin-top: 50px;">
+    <button style="width: 200px;" data-toggle="modal" data-target="#exampleModalCenter">Add</button>
+    <% for(var i=0;i<values.length;i++){%>
+    <div class="card">
+        <div class="contain">
+            
+        </div>
+        <div class="container type">
+            <h4> <b>Team Name: <%-values[i].teamname%> </b></h4>
+    
+            <p style="margin-bottom: 20px;">
+            </p>
+           
+            <p style="margin-bottom: 20px;">Win/Total Matches:<%-values[i].win%>/ <%-values[i].total%>
+            </p>
+            
+                
+
+        </div>
+    </div>
+    <%}%>
+    </div>
+
+    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 100px;" role="document">
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Add Plan</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+    
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">Match ID </label>
+    
+                            <input type="text" id="defaultForm-email" class="form-control validate" name="matchid">
+    
+                        </div>
+    
+                        
+    
+                        
+                        <div class="md-form mb-4">
+                            <label class="form-label select-label">Winning Team</label>
+                            <select class="select" style="width:100%; height:40px" name="team1" required>
+                                <option value="none" selected disabled hidden>Select a Team</option>
+                               
+                                
+                                    <%for(var i=0;i<teams.length;i++){ %>
+    
+                                        <option value="<%-teams[i].teamid%>">
+                                            <%-teams[i].teamname%>
+                                        </option>
+    
+                                        <%}%>
+                                           
+                                            
+                            </select>
+                        </div>
+                    <div class="md-form mb-4">
+                        <label class="form-label select-label">Losing Team</label>
+                        <select class="select" style="width:100%; height:40px" name="team2" required>
+                            <option value="none" selected disabled hidden>Select a Team</option>
+                    
+                    
+                            <%for(var i=0;i<teams.length;i++){ %>
+                    
+                                <option value="<%-teams[i].teamid%>">
+                                    <%-teams[i].teamname%>
+                                </option>
+                    
+                                <%}%>
+                    
+                    
+                        </select>
+                    </div>
+                    </div>
+                    <div class=" d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;"
+                            onclick="savematchdetails()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        </div>
+    </div>
+
+<script>
+    async function savematchdetails(){
+        const form=document.querySelector('form');
+
+        const matchid=form.matchid.value;
+        const team1=form.team1.value;
+        const team2=form.team2.value;
+
+
+         try {
+            const res = await fetch('/team/insertvalue', {
+                method: 'POST',
+                body: JSON.stringify({ matchid:matchid,team1:team1,team2:team2 }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+
+            if (res.status == 201) {
+                console.log(22);
+                location.reload();
+            }
+            
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+</script>
+</body>
+</html>
